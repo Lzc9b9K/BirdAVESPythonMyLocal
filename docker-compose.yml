@@ -1,0 +1,21 @@
+# version: '3'
+services:
+  python:                           # pythonという名前でサービスを定義
+    build:                          
+      context: .                   # Dockerfileを相対パスで指定
+      dockerfile: Dockerfile
+    # env_file:                       # 環境変数の割り当て
+    #   - ../.env
+    shm_size: "32gb"                 # 割り当てるメモリ量を記述　※不足している場合はモデルの学習中にエラーが発生
+    ulimits:                        # 以下は、コンテナにおいてGPUを使うための設定
+        memlock: -1
+        stack: -1
+    deploy:
+        resources:
+          reservations:
+            devices:
+              - driver: nvidia
+                capabilities: [ gpu ]
+    tty: true                       # コンテナを継続して起動
+    volumes:
+      - .:/app                 # コンテナ停止後もデータをローカルPCに残すようにマウント　※記述方法は、「ローカルPCの相対パス:コンテナ内の作業ディレクトリ」

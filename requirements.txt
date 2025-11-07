@@ -1,0 +1,9 @@
+lightning==2.3.3
+lightning-utilities==0.11.8
+scikit-learn==1.3.2
+matplotlib==3.7.5
+pandas==2.0.3
+h5py==3.11.0
+wandb==0.18.6
+soundfile==0.12.1
+torcheval==0.0.7
